@@ -1,0 +1,33 @@
+import urllib.request
+import urllib.parse
+import re
+import os
+def open_url(url):
+     req=urllib.request.urlopen(url)
+     #req.add_header('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36')
+     html=req.read()
+     return html
+
+def find_img(url):
+    img_addrs=[]
+    match=re.findall('<img src="([^"]+\.jpg)"',url)                        
+    for each in match:
+       img_addrs.append('http:'+each)
+    return img_addrs
+'''def download_mm(folder='xxoo',pages=10):
+    os.mkdir(folder)
+    os.chdir(folder)'''
+#def save_img(folder,img_addrs):
+    
+x=open_url('http://jandan.net/ooxx/page-231#comments') .decode('utf-8')           
+img_addrs=find_img(x)
+for each in img_addrs:
+        filename=each.split('/')[-1]
+        print(filename)
+       # with open(r'c:\users\lazio\desktop\filename.jpg','wb') as f:
+           # img=open_url(each)
+            #f.write(img)
+        urllib.request.urlretrieve(each,filename)   
+
+         
+    
